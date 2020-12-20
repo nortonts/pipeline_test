@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage("docker install") {
             steps {
-                sh 'sudo apt remove docker docker-engine docker.io containerd runc'
+                sh 'docker --version'
                 
             }
         }
