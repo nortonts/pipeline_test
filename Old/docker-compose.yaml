@@ -1,0 +1,38 @@
+version: '3.2'
+volumes:
+  postgres_data:
+services:
+  db:
+    image: postgres:12.4
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment: 
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+  pg-admin:
+    image: dpage/pgadmin4
+    restart: always
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: "test@domain.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgpass" 
+    depends_on: 
+      - db  
+    ports:
+      - "5432:5432"     
+  linux:
+    image: ubuntu:latest
+    restart: always
+    ports:
+      - "8000:8000"      
+  tomcat:
+    image: tomcat
+    restart: always
+    ports:
+      - "8080:8080"     
+  nginx:
+    image: nginx:1.19.5
+    restart: always
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d
+    ports:
+      - "80:80"
