@@ -11,11 +11,11 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("docker push") {
+        stage("docker compose") {
             steps {
-                echo " ============== building ubuntu =================="
-                dir ('Docker')
+                dir ('Docker')  {
                 sh 'docker compose up .'
+                }
             }
         }
     }
