@@ -13,7 +13,8 @@ pipeline {
     stages {
         stage("docker run debian") {
             steps {
-                sh 'docker swarm init'
+                dir ('Docker') {
+                sh 'docker build -t linux .'
             }
         }
     }
