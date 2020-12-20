@@ -11,10 +11,9 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("docker install") {
+        stage("docker run debian") {
             steps {
-                sh 'docker --version'
-                
+                sh 'docker swarm init'
             }
         }
     }
