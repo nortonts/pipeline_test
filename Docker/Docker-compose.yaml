@@ -1,0 +1,32 @@
+version: '3.8'
+volumes:
+  postgres_data:
+services:
+  db:
+    image: postgres:12.4
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment: 
+      POSTGERS_PASSWORD: "postpass"
+  pg-admin:
+    image: dpage/pgadmin4
+    restart: always
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: "test@domain.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgpass" 
+    depends_on: 
+      - db     
+  linux:
+    image: ubuntu:latest
+    restart: always
+  tomcat:
+    image: tomcat
+    restart: always
+  nginx:
+    image: nginx:1.19.5
+    restart: always
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d
+    ports:
+      - "80:80"
