@@ -13,22 +13,22 @@ pipeline {
     stages {
         stage("swarm") {
             steps {
-                
                 sh 'docker swarm init'
-                
-            }
+                }
+            }    
         stage("build container") {
             steps {
                 dir ('Docker') {
-                sh 'docker-compose build'
+                    sh 'docker-compose build'
+                    }
                 }
             }
         stage("run node") {
             steps {
                 dir ('Docker') {
                 sh 'docker stack deploy nodeapp -c docker-compose.yml'
-                }
+                    }
+                }     
             }    
-        }
     }
 }
