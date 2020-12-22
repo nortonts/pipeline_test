@@ -5,7 +5,7 @@ services:
         build: .
         image: takacsmark/swarm-example:1.0
     nginx:
-        build: ./nginx/
+        build: ./nginx
         image: nginx:1.19.5
         restart: always
         volumes:
