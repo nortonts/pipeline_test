@@ -13,12 +13,13 @@ pipeline {
     stages {
         stage("docker login") {
             steps {
-                echo " ============== docker login =================="
-                sh """
-                    docker login -u nortonts -p n0rt0n21043V@z
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_nortonts', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
                     """
                 }
             }
+        }
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
