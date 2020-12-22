@@ -7,6 +7,23 @@ services:
         image: tomcat:latest
         ports:
             - "8080:8080" 
+    db:
+        image: postgres:12.4
+        restart: always
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        environment: 
+            POSTGRES_HOST_AUTH_METHOD: "trust"
+    pg-admin:
+        image: dpage/pgadmin4
+        restart: always
+        environment: 
+            PGADMIN_DEFAULT_EMAIL: "test@domain.com"
+            PGADMIN_DEFAULT_PASSWORD: "pgpass" 
+        depends_on: 
+            - db  
+        ports:
+            - "5432:5432"     
     nginx:
         image: nortonts/nginx_conf:latest
         restart: always
