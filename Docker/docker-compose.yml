@@ -7,7 +7,5 @@ services:
     nginx:
         image: nortonts/nginx_conf:latest
         restart: always
-        volumes:
-            - static_volume:/code/static/ 
         ports:
             - "80:80" 
