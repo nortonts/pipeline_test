@@ -5,10 +5,9 @@ services:
         build: .
         image: takacsmark/swarm-example:1.0
     nginx:
-        build: ./nginx/
-        image: nginx:1.19.5
+        build: ./nginx 
         restart: always
         volumes:
-        - ./nginx/:/etc/nginx/conf.d
+            - static_volume:/code/static/ 
         ports:
-        - "80:80" 
+            - "80:80" 

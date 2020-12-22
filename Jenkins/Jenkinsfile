@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh 'docker swarm init'
                 }
-            }    
+            }       
         stage("build container") {
             steps {
                 dir ('Docker') {
