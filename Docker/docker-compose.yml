@@ -5,7 +5,7 @@ services:
         build: .
         image: takacsmark/swarm-example:1.0
     nginx:
-        build: ./nginx 
+        image: nortonts/nginx_conf:latest
         restart: always
         volumes:
             - static_volume:/code/static/ 
