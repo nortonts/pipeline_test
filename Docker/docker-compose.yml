@@ -3,7 +3,10 @@ volumes:
   postgres_data:
 services:
     web:
-        image: debian:latest
+        image: nortonts/nginx_conf:latest
+        restart: always
+        ports:
+            - "80:80" 
     tomcat:
         image: tomcat:latest
         ports:
@@ -25,8 +28,4 @@ services:
             - db  
         ports:
             - "5432:5432"     
-    nginx:
-        image: nortonts/nginx_conf:latest
-        restart: always
-        ports:
-            - "80:80" 
+

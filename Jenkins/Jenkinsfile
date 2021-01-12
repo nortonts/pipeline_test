@@ -41,7 +41,7 @@ pipeline {
                 sh 'docker swarm init'
                 }
             }       
-        stage("build container") {
+        stage("build docker-compose") {
             steps {
                 dir ('Docker') {
                     sh 'docker-compose build'

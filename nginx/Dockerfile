@@ -1,3 +1,3 @@
-FROM nginx:1.19.0-alpine 
-RUN rm /etc/nginx/conf.d/default.conf 
-COPY nginx.conf /etc/nginx/conf.d
+FROM debian:latest
+RUN apt-get update && apt-get install -y nginx
+CMD ["nginx", "-g", "daemon off;"]
