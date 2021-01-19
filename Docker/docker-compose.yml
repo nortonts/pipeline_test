@@ -9,7 +9,7 @@ services:
             - "80:80" 
     tomcat:
         image: tomcat:latest
-        expose:
+        ports:
             - "8080:8080" 
     db:
         image: postgres:12.4
