@@ -39,5 +39,5 @@ services:
             - "db:pgsql-server"
         volumes:
         db-data:
-        pgadmin-data:
+        
 
