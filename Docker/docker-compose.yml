@@ -11,27 +11,33 @@ services:
         image: tomcat:latest
         ports:
             - "8080:8080" 
-    postgres:
+    db:
         image: postgres
-        hostname: postgres
-        ports:
-        - "6543:6543"
+        restart: always
         environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: TEST_SM
+            POSTGRES_DB: postgres
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: secret
+            PGDATA: /var/lib/postgresql/data
         volumes:
-            - postgres-data:/var/lib/postgresql/data
-        restart: unless-stopped
-
+            - db-data:/var/lib/postgresql/data
+        ports:
+            - "6543:6543"
+    
     pgadmin:
         image: dpage/pgadmin4
-        depends_on:
-            - postgres
+        restart: always
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@linuxhint.com
+            PGADMIN_DEFAULT_PASSWORD: secret
+            PGADMIN_LISTEN_PORT: 5432
         ports:
             - "5432:5432"
-        environment:
-        PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-        PGADMIN_DEFAULT_PASSWORD: admin
-        restart: unless-stopped    
+        volumes:
+            - pgadmin-data:/var/lib/pgadmin
+        links:
+            - "db:pgsql-server"
+        volumes:
+        db-data:
+        pgadmin-data:
 
