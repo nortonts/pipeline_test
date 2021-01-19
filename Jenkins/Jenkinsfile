@@ -19,12 +19,7 @@ pipeline {
                     """
                 }
             }
-        }
-        stage("leave swarm") {
-            steps {
-                sh 'docker swarm leave -f'
-                }
-            }       
+        }     
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
