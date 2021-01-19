@@ -1,6 +1,4 @@
 version: '3'
-volumes: 
-  postgres_data:
 services:
     web:
         image: nortonts/nginx_conf:latest
@@ -11,33 +9,30 @@ services:
         image: tomcat:latest
         ports:
             - "8080:8080" 
-    db:
-        image: postgres
+    pgAdmin:
         restart: always
+        image: dpage/pgadmin4
+        ports:
+            - "8000:5432"
         environment:
-            POSTGRES_DB: postgres
-            POSTGRES_USER: admin
-            POSTGRES_PASSWORD: secret
-            PGDATA: /var/lib/postgresql/data
+            PGADMIN_DEFAULT_EMAIL: 1234@admin.com
+            PGADMIN_DEFAULT_PASSWORD: 1234
         volumes:
-            - db-data:/var/lib/postgresql/data
+            - pgadmin:/var/lib/pgadmin
+    postgres:
+        restart: always
+        image: postgres
+        container_name: "postgres_container"
         ports:
             - "6543:6543"
-    
-    pgadmin:
-        image: dpage/pgadmin4
-        restart: always
         environment:
-            PGADMIN_DEFAULT_EMAIL: admin@linuxhint.com
-            PGADMIN_DEFAULT_PASSWORD: secret
-            PGADMIN_LISTEN_PORT: 5432
-        ports:
-            - "5432:5432"
+            POSTGRES_USER: me
+            POSTGRES_PASSWORD: 1234
+            POSTGRES_DB: testDb
         volumes:
-            - pgadmin-data:/var/lib/pgadmin
-        links:
-            - "db:pgsql-server"
-        volumes:
-        db-data:
+            - pgvol:/var/lib/postgresql/data
+volumes:
+    pgvol:
+    pgadmin:
         
 
